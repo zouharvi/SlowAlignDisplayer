@@ -7,30 +7,39 @@
     margin-right: auto;
     display: block;
     width: 800px;
-    height: 400px;
+    height: 200px;
     border: 1px solid gray;
     background-color: white;
 }
 
 #doalign {
-    margin-top: 10px;
-    font-size: 1.3em;;
+    font-size: 1.1em;
+    width: 100px;
+    float: right;
 }
 
 input:focus {
     outline: none;
 }
 
-#control_div div div {
+input {
+    font-size: 1.05em;
+}
+
+.control_input_text {
+    width: 800px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.control_input_text div {
     font-size: 1.2em;
-    width: 95px;
-    text-align: left;
+    width: 100px;
     display: inline-block;
 }
 
-#control_div div input {
-    float: right;
-    width: 700px;
+.control_input_text input {
+    width: 690px;
 }
 
 #control_div {
