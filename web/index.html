@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Slow Align</title>
+    <link rel='stylesheet' href='style.css'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body style='text-align: center; background-color: #fafafa;'>
+    <div style='height: 0; overflow-y: hidden;'>
+        <svg id='main_canvas' version="1.1" xmlns="http://www.w3.org/2000/svg" style='width: 800px; height: 400px;'></svg>
+    </div>
+    <h1>Slow Align</h1>
+    <div id='control_div' style='width: 800px; margin-left: auto; margin-right: auto;'>
+        <div>
+            <div>Source:</div>
+            <input id='src' type='text' value='ssdfsdfsdf'>
+        </div>
+        <div>
+            <div>Target:</div>
+            <input id='tgt' type='text'>
+        </div>
+        <div>
+            <div>Alignment:</div>
+            <input id='aln' type='text'>
+        </div>
+        <input id='doalign' type='button' value='Graph'>
+    </div>
+    <img id='getsvg' alt='aligned' title='aligned' src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='>
+    <script src="./index.js"></script>
+</body>
+
+</html>

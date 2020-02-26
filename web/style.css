@@ -1,0 +1,38 @@
+* {
+    font-family: Roboto;
+}
+
+#getsvg {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+    height: 400px;
+    border: 1px solid gray;
+    background-color: white;
+}
+
+#doalign {
+    margin-top: 10px;
+    font-size: 1.3em;;
+}
+
+input:focus {
+    outline: none;
+}
+
+#control_div div div {
+    font-size: 1.2em;
+    width: 95px;
+    text-align: left;
+    display: inline-block;
+}
+
+#control_div div input {
+    float: right;
+    width: 700px;
+}
+
+#control_div {
+    margin-bottom: 20px;
+}

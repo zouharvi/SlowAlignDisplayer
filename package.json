@@ -1,0 +1,29 @@
+{
+  "name": "slowalign",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.2"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch=true",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zouharvi/SlowAlign.git"
+  },
+  "author": "Vilém Zouhar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zouharvi/SlowAlign/issues"
+  },
+  "homepage": "https://github.com/zouharvi/SlowAlign/"
+}
