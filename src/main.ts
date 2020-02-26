@@ -178,7 +178,9 @@ document.getElementById('example4').addEventListener('click', () => {
     )
 })
 
-document.getElementById('example1').click()
+window.setTimeout(() => {
+    document.getElementById('example1').click()
+}, 500)
 
 function performExample(src: string, tgt: string, aln: string) {
     srcText.value = src
