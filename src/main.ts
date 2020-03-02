@@ -10,13 +10,13 @@ var getsvg: HTMLAnchorElement = <HTMLAnchorElement>document.getElementById('gets
 function drawSVG() {
     let serializer = new XMLSerializer();
     let svgserialized = serializer.serializeToString(svg);
-    svgserialized = '<?xml version="1.1" standalone="no"?>\r\n' + svgserialized
+    svgserialized = '<?xml version="1.0" standalone="no"?>\r\n' + svgserialized
     getsvg.setAttribute("src", "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgserialized))
 }
 function downloadSVG() {
     let serializer = new XMLSerializer();
     let svgserialized = serializer.serializeToString(svg);
-    svgserialized = '<?xml version="1.1" standalone="no"?>\r\n' + svgserialized
+    svgserialized = '<?xml version="1.0" standalone="no"?>\r\n' + svgserialized
     let svgdata = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgserialized)
 
     let link = document.createElement('a')
