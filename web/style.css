@@ -1,5 +1,9 @@
-div, p, span {
+h1, div, p, span {
     font-family: Roboto;
+}
+
+h1 {
+    font-size: 3em;
 }
 
 #getsvg {
