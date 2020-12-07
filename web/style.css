@@ -10,11 +10,13 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    min-width: 800px;
+    min-width: 400px;
     min-height: 100px;
-    height: 200px;
     border: 1px solid gray;
     background-color: white;
+    /* default values, expected to be overriden after example is drawn */
+    width: 800px;
+    height: 200px;
 }
 
 #doalign {
@@ -49,4 +51,9 @@ input {
 
 #control_div {
     margin-bottom: 20px;
+}
+
+#example1, #example2, #example3, #example4, #example5 {
+    width: 150px;
+    padding: 0;
 }

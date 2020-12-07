@@ -7,7 +7,6 @@ var fontSize: HTMLInputElement = <any>document.getElementById('fontsize')
 var h_space: HTMLInputElement = <any>document.getElementById('h_space')
 var v_space: HTMLInputElement = <any>document.getElementById('v_space')
 var getsvg: HTMLAnchorElement = <HTMLAnchorElement>document.getElementById('getsvg')
-var prevWindowWidth: number = 800
 
 function drawSVG() {
     let serializer = new XMLSerializer();
@@ -90,7 +89,7 @@ function addTexts(t1: string, t2: string) {
         let t1el: SVGTextElement = <SVGTextElement>document.createElementNS(svgns, 'text')
         t1el.setAttributeNS(null, 'x', (prevEndX + offsetXtgt).toString())
         t1el.setAttributeNS(null, 'y', (v_spaceN - fontSizeN).toString())
-        t1el.setAttributeNS(null, 'font-size', fontSizeN.toString())
+        t1el.setAttributeNS(null, 'font-size', (fontSizeN + 'px'))
         t1el.setAttributeNS(null, 'font-family', 'sans-serif')
         t1el.textContent = tgtTokens[i]
         svg.appendChild(t1el)
@@ -115,7 +114,7 @@ function addTexts(t1: string, t2: string) {
         let t1el: SVGTextElement = <SVGTextElement>document.createElementNS(svgns, 'text')
         t1el.setAttributeNS(null, 'x', (prevEndX + offsetXsrc).toString())
         t1el.setAttributeNS(null, 'y', (fontSizeN).toString())
-        t1el.setAttributeNS(null, 'font-size', fontSizeN.toString())
+        t1el.setAttributeNS(null, 'font-size', (fontSizeN + 'px'))
         t1el.setAttributeNS(null, 'font-family', 'sans-serif')
         t1el.textContent = srcTokens[i]
         svg.appendChild(t1el)
@@ -164,35 +163,44 @@ document.getElementById('dodraw').addEventListener('click', doDraw)
 document.getElementById('dodownload').addEventListener('click', doDownload)
 document.getElementById('example1').addEventListener('click', () => {
     performExample(
-        "choose Export from the pop-up menu at the bottom of the dialog box .",
-        'wählen Sie im Popupmenü unten im Dialogfeld die Option " Exportieren . "',
+        "Choose Export from the pop-up menu at the bottom of the dialog box .",
+        'Wählen Sie im Popupmenü unten im Dialogfeld die Option " Exportieren . "',
         '0-0 0-1 1-10 2-3 3-2 4-3 5-2 7-7 8-4 10-7 11-6 12-6 12-12 13-11')
 })
 document.getElementById('example2').addEventListener('click', () => {
     performExample(
-        "you can set keyframes for more than one layer property at a time .",
-        "můžete nastavit klíčové snímky pro více než jednu vlastnost vrstvy najednou .",
+        "You can set keyframes for more than one layer property at a time .",
+        "Můžete nastavit klíčové snímky pro více než jednu vlastnost vrstvy najednou .",
         "0-0 1-0 2-1 3-2 3-3 4-4 5-5 6-6 7-7 8-9 9-8 12-10 13-11"
     )
 })
 document.getElementById('example3').addEventListener('click', () => {
     performExample(
-        "how would you rate the quality of the latest update of Microsoft Power Point ?",
+        "How would you rate the quality of the latest update of Microsoft Power Point ?",
         "как бы вы оценили качество последнего обновления Microsoft Power Point ?",
         "0-0 1-1 2-2 3-2 3-3 4-5 5-4 7-5 8-6 9-6 11-7 12-8 13-9 14-10"
     )
 })
 document.getElementById('example4').addEventListener('click', () => {
     performExample(
-        "patients should follow the specific venipuncture procedures provided by their doctor .",
-        "pacientiem jāievēro Īpaša ārsta norādījumi , ko izmanto Jūsu ārsts .",
+        "Patients should follow the specific venipuncture procedures provided by their doctor .",
+        "Pacientiem jāievēro Īpaša ārsta norādījumi , ko izmanto Jūsu ārsts .",
         "0-0 1-1 2-1 4-4 5-5 6-5 7-4 7-6 8-6 8-7 10-8 10-9 11-10"
     )
 })
+document.getElementById('example5').addEventListener('click', () => {
+    performExample(
+        "Der Igel schlief glücklich ein .",
+        "Ežiukas laimingai užmigo .",
+        "0-0 1-0 2-2 3-1 4-2 5-3"
+    )
+})
 
+document.getElementById('example1').click()
 window.setTimeout(() => {
     document.getElementById('example1').click()
 }, 500)
+
 
 function performExample(src: string, tgt: string, aln: string) {
     srcText.value = src
