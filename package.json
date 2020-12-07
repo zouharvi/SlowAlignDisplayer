@@ -8,8 +8,8 @@
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

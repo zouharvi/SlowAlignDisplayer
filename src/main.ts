@@ -4,8 +4,10 @@ var srcText: HTMLInputElement = <any>document.getElementById('src')
 var tgtText: HTMLInputElement = <any>document.getElementById('tgt')
 var alnText: HTMLInputElement = <any>document.getElementById('aln')
 var fontSize: HTMLInputElement = <any>document.getElementById('fontsize')
-var spaceSize: HTMLInputElement = <any>document.getElementById('spacesize')
+var h_space: HTMLInputElement = <any>document.getElementById('h_space')
+var v_space: HTMLInputElement = <any>document.getElementById('v_space')
 var getsvg: HTMLAnchorElement = <HTMLAnchorElement>document.getElementById('getsvg')
+var prevWindowWidth: number = 800
 
 function drawSVG() {
     let serializer = new XMLSerializer();
@@ -51,40 +53,43 @@ function parseAlignment(): { [id: number]: Array<number> } {
     return out
 }
 
+// computes text width
 function getWidth(t1: string) {
     let srcTokens = tokenize(t1)
-    let spaceSizeN = parseInt(spaceSize.value)
+    let h_spaceN = parseInt(h_space.value)
+    let v_spaceN = parseInt(v_space.value)
     let prevEndX = 0
     for (let i = 0; i < srcTokens.length; i++) {
         let t1el: SVGTextElement = <SVGTextElement>document.createElementNS(svgns, 'text')
         t1el.setAttributeNS(null, 'x', prevEndX.toString())
-        t1el.setAttributeNS(null, 'y', (200 - 20).toString())
+        t1el.setAttributeNS(null, 'y', (v_spaceN - 20).toString())
         t1el.setAttributeNS(null, 'font-size', fontSize.value)
         t1el.setAttributeNS(null, 'font-family', 'sans-serif')
         t1el.textContent = srcTokens[i]
         svg.appendChild(t1el)
-        prevEndX += t1el.getBBox().width + spaceSizeN
+        prevEndX += t1el.getBBox().width + h_spaceN
     }
     // clear screen
     svg.innerHTML = ''
-    return prevEndX - spaceSizeN
+    return prevEndX - h_spaceN
 }
 
 function addTexts(t1: string, t2: string) {
     let srcTokens = tokenize(t1)
     let tgtTokens = tokenize(t2)
-    let spaceSizeN = parseInt(spaceSize.value)
+    let h_spaceN = parseInt(h_space.value)
+    let v_spaceN = parseInt(v_space.value)
     let fontSizeN = parseInt(fontSize.value)
     let prevEndX = 0;
-    let offsetXsrc = (800 - getWidth(t1)) / 2
-    let offsetXtgt = (800 - getWidth(t2)) / 2
+    let offsetXsrc = fontSizeN + Math.max(0, (getWidth(t2)-getWidth(t1))/2) // approximated using font size
+    let offsetXtgt = fontSizeN + Math.max(0, (getWidth(t1)-getWidth(t2))/2) // approximated using font size
 
     // startX and endX
     let tgtBounds = new Array<[number, number]>()
     for (let i = 0; i < tgtTokens.length; i++) {
         let t1el: SVGTextElement = <SVGTextElement>document.createElementNS(svgns, 'text')
         t1el.setAttributeNS(null, 'x', (prevEndX + offsetXtgt).toString())
-        t1el.setAttributeNS(null, 'y', (200 - fontSizeN).toString())
+        t1el.setAttributeNS(null, 'y', (v_spaceN - fontSizeN).toString())
         t1el.setAttributeNS(null, 'font-size', fontSizeN.toString())
         t1el.setAttributeNS(null, 'font-family', 'sans-serif')
         t1el.textContent = tgtTokens[i]
@@ -94,14 +99,15 @@ function addTexts(t1: string, t2: string) {
         let t2el: SVGLineElement = <SVGLineElement>document.createElementNS(svgns, 'line')
         t2el.setAttributeNS(null, 'x1', (prevEndX + offsetXtgt).toString())
         t2el.setAttributeNS(null, 'x2', (prevEndX + offsetXtgt + t1el.getBBox().width).toString())
-        t2el.setAttributeNS(null, 'y1', (200 - fontSizeN * 2.0).toString())
-        t2el.setAttributeNS(null, 'y2', (200 - fontSizeN * 2.0).toString())
+        t2el.setAttributeNS(null, 'y1', (v_spaceN  - fontSizeN * 2.0).toString())
+        t2el.setAttributeNS(null, 'y2', (v_spaceN - fontSizeN * 2.0).toString())
         t2el.setAttributeNS(null, 'style', 'stroke:black; width:8')
         svg.appendChild(t2el)
 
-        tgtBounds.push([prevEndX + offsetXtgt + t1el.getBBox().width / 2, 200 - fontSizeN * 2.0])
-        prevEndX += t1el.getBBox().width + spaceSizeN
+        tgtBounds.push([prevEndX + offsetXtgt + t1el.getBBox().width / 2, v_spaceN - fontSizeN * 2.0])
+        prevEndX += t1el.getBBox().width + h_spaceN
     }
+    let tgtWidth = prevEndX
 
     prevEndX = 0
     let alignment = parseAlignment()
@@ -133,13 +139,19 @@ function addTexts(t1: string, t2: string) {
             svg.appendChild(t3el)
         }
 
-        prevEndX += t1el.getBBox().width + spaceSizeN
+        prevEndX += t1el.getBBox().width + h_spaceN
     }
+    let newWidth = Math.max(tgtWidth, prevEndX) + fontSizeN
+    return [newWidth, v_spaceN];
 }
 
 function doDraw() {
     svg.innerHTML = ''
-    addTexts(srcText.value, tgtText.value)
+    let [newWidth, newHeight] = addTexts(srcText.value, tgtText.value)
+    // set the new dimensions of the svg box
+    getsvg.style.height = newHeight + 'px'
+    getsvg.style.width = newWidth + 'px'
+
     drawSVG()
 }
 
