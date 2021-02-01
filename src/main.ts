@@ -8,6 +8,23 @@ var h_space: HTMLInputElement = <any>document.getElementById('h_space')
 var v_space: HTMLInputElement = <any>document.getElementById('v_space')
 var getsvg: HTMLAnchorElement = <HTMLAnchorElement>document.getElementById('getsvg')
 
+function parseURLQuery(): { [key: string]: string } {
+    // parses the URL query string
+    let queryString = window.location.search.substring(1);
+
+    const params: { [key: string]: string } = {};
+    const queries = queryString.split("&");
+
+    queries.forEach((indexQuery: string) => {
+        const indexPair = indexQuery.split("=");
+        const queryKey = decodeURIComponent(indexPair[0]);
+        const queryValue = decodeURIComponent(indexPair.length > 1 ? indexPair[1] : "");
+        params[queryKey] = queryValue;
+    });
+
+    return params;
+}
+
 function drawSVG() {
     let serializer = new XMLSerializer();
     let svgserialized = serializer.serializeToString(svg);
@@ -80,8 +97,8 @@ function addTexts(t1: string, t2: string) {
     let v_spaceN = parseInt(v_space.value)
     let fontSizeN = parseInt(fontSize.value)
     let prevEndX = 0;
-    let offsetXsrc = fontSizeN + Math.max(0, (getWidth(t2)-getWidth(t1))/2) // approximated using font size
-    let offsetXtgt = fontSizeN + Math.max(0, (getWidth(t1)-getWidth(t2))/2) // approximated using font size
+    let offsetXsrc = fontSizeN + Math.max(0, (getWidth(t2) - getWidth(t1)) / 2) // approximated using font size
+    let offsetXtgt = fontSizeN + Math.max(0, (getWidth(t1) - getWidth(t2)) / 2) // approximated using font size
 
     // startX and endX
     let tgtBounds = new Array<[number, number]>()
@@ -98,7 +115,7 @@ function addTexts(t1: string, t2: string) {
         let t2el: SVGLineElement = <SVGLineElement>document.createElementNS(svgns, 'line')
         t2el.setAttributeNS(null, 'x1', (prevEndX + offsetXtgt).toString())
         t2el.setAttributeNS(null, 'x2', (prevEndX + offsetXtgt + t1el.getBBox().width).toString())
-        t2el.setAttributeNS(null, 'y1', (v_spaceN  - fontSizeN * 2.0).toString())
+        t2el.setAttributeNS(null, 'y1', (v_spaceN - fontSizeN * 2.0).toString())
         t2el.setAttributeNS(null, 'y2', (v_spaceN - fontSizeN * 2.0).toString())
         t2el.setAttributeNS(null, 'style', 'stroke:black; width:8')
         svg.appendChild(t2el)
@@ -198,8 +215,14 @@ document.getElementById('example5').addEventListener('click', () => {
 
 document.getElementById('example1').click()
 window.setTimeout(() => {
-    document.getElementById('example1').click()
-}, 500)
+    let query = parseURLQuery()
+    if ('text1' in query && 'text2' in query && 'algn' in query) {
+        performExample(query['text1'], query['text2'], query['algn'])
+        doDraw()
+    } else {
+        document.getElementById('example1').click()
+    }
+}, 250)
 
 
 function performExample(src: string, tgt: string, aln: string) {
@@ -208,3 +231,4 @@ function performExample(src: string, tgt: string, aln: string) {
     alnText.value = aln
     doDraw()
 }
+

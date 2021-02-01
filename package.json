@@ -1,5 +1,5 @@
 {
-  "name": "slowalign",
+  "name": "slowalign_displayer",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -8,7 +8,7 @@
     "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "webpack": "^4.44.2",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zouharvi/SlowAlign.git"
+    "url": "git+https://github.com/zouharvi/SlowAlignDisplayer.git"
   },
   "author": "Vilém Zouhar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zouharvi/SlowAlign/issues"
+    "url": "https://github.com/zouharvi/SlowAlignDisplayer/issues"
   },
-  "homepage": "https://github.com/zouharvi/SlowAlign/"
+  "homepage": "https://github.com/zouharvi/SlowAlignDisplayer/"
 }
