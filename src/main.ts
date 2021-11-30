@@ -146,6 +146,9 @@ function addTexts(t1: string, t2: string) {
 
         for (let j = 0; j < alignment[i].length; j++) {
             let targetI = alignment[i][j]
+            if (targetI >= tgtBounds.length) {
+                continue
+            }
             let t3el: SVGLineElement = <SVGLineElement>document.createElementNS(svgns, 'line')
             t3el.setAttributeNS(null, 'x1', (prevEndX + offsetXsrc + t1el.getBBox().width / 2).toString())
             t3el.setAttributeNS(null, 'x2', tgtBounds[targetI][0].toString())
@@ -232,3 +235,12 @@ function performExample(src: string, tgt: string, aln: string) {
     doDraw()
 }
 
+srcText.addEventListener("input", () => {
+    doDraw();
+});
+tgtText.addEventListener("input", () => {
+    doDraw();
+});
+alnText.addEventListener("input", () => {
+    doDraw();
+});
